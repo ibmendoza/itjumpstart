@@ -1,0 +1,197 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>ITJUMPSTART</title>
+	
+    <link rel="stylesheet" type="text/css" href="css/register.css">
+	<link rel="stylesheet" type="text/css" href="css/github.css">
+	
+	<script type="text/javascript" src="lib/jquery.js"></script>
+	<script type="text/javascript" src="lib/when.js"></script>
+	<script type="text/javascript" src="lib/jqPromise.js"></script>
+	<script type="text/javascript" src="lib/jquery.mockjax.js"></script>
+    <script type="text/javascript" src="lib/mocks.js"></script>
+	
+    <script type="text/javascript">
+		//var $j = jQuery.noConflict();
+		$(jqPromise);
+    </script>
+  </head>
+  
+<body style="background-image:url(images/rain.jpg)">
+  
+<div style="color: white">
+  <strong>ITJUMPSTART</strong>&nbsp;&nbsp;&nbsp;
+
+  <strong>
+  <a href="index.html" style="color: red">Home</a>
+  <a> | </a>
+  
+  </strong>
+  <a> | </a>
+  <a style="color: white"> Promise-based version of Bacon.js Tutorial</a>
+</div>
+
+    <form id="login-container">
+      <h1>Bacon Registration Form</h1>
+      <div id="username">
+        <input type="text" placeholder="username">
+        <em class="ajax"></em>
+        <em id="username-unavailable" class="tooltip">Username is unavailable</em>
+      </div>
+      <div id="fullname">
+        <input type="text" placeholder="Full Name">
+      </div>
+      <div id="register">
+        <button>Get some!</button>
+        <em class="ajax"></em>
+        <span id="result"></span>
+      </div>
+    </form>
+
+
+
+<div class="highlight highlight-javascript"><pre><span class="kd">function</span> <span class="nx">jqPromise</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="kd">var</span> <span class="nx">when</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'when'</span><span class="p">);</span>
+
+    <span class="kd">function</span> <span class="nx">show</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="kd">function</span> <span class="nx">nonEmpty</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">x</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="p">}</span>
+    <span class="kd">function</span> <span class="nx">setVisibility</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">visible</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">element</span><span class="p">.</span><span class="nx">toggle</span><span class="p">(</span><span class="nx">visible</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="kd">function</span> <span class="nx">setEnabled</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">enabled</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">element</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">"disabled"</span><span class="p">,</span> <span class="o">!</span><span class="nx">enabled</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="kd">var</span> <span class="nx">registerButton</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">"#register button"</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">unavailabilityLabel</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">"#username-unavailable"</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">usernameAjaxIndicator</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">"#username .ajax"</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">registerAjaxIndicator</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">"#register .ajax"</span><span class="p">);</span>
+
+    <span class="c1">//initialize</span>
+    <span class="nx">setVisibility</span><span class="p">(</span><span class="nx">usernameAjaxIndicator</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+    <span class="nx">setVisibility</span><span class="p">(</span><span class="nx">registerAjaxIndicator</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+    <span class="nx">setEnabled</span><span class="p">(</span><span class="nx">registerButton</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+
+    <span class="c1">//a deferred's resolve/reject and notify are mutually exclusive</span>
+
+    <span class="kd">var</span> <span class="nx">fullname</span> <span class="o">=</span> <span class="nx">when</span><span class="p">(</span><span class="s1">''</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">username</span> <span class="o">=</span> <span class="nx">when</span><span class="p">(</span><span class="s1">''</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">usernameEntered</span> <span class="o">=</span> <span class="nx">when</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">fullnameEntered</span> <span class="o">=</span> <span class="nx">when</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">buttonEnabled</span> <span class="o">=</span> <span class="nx">when</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">availabilityRequest</span> <span class="o">=</span> <span class="nx">when</span><span class="p">.</span><span class="nx">defer</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">jqAvailabilityRequest</span><span class="p">;</span> <span class="c1">//= $.Deferred();</span>
+    <span class="kd">var</span> <span class="nx">availabilityPending</span> <span class="o">=</span> <span class="nx">when</span><span class="p">.</span><span class="nx">defer</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">usernameAvailable</span> <span class="o">=</span> <span class="nx">when</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+
+    <span class="c1">//no availabilityResponse (less variables, the better)</span>
+
+    <span class="kd">function</span> <span class="nx">setButtonEnabled</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">buttonEnabled</span> <span class="o">=</span> <span class="nx">when</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">usernameEntered</span><span class="p">,</span> <span class="nx">usernameAvailable</span><span class="p">,</span> <span class="nx">fullnameEntered</span><span class="p">);</span>
+
+        <span class="nx">buttonEnabled</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">arrayBool</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">//alert(arrayBool);</span>
+
+            <span class="nx">len</span> <span class="o">=</span> <span class="nx">arrayBool</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+            <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">result</span> <span class="o">=</span> <span class="nx">result</span> <span class="o">&amp;&amp;</span> <span class="nx">arrayBool</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+            <span class="p">}</span>
+            <span class="nx">setEnabled</span><span class="p">(</span><span class="nx">registerButton</span><span class="p">,</span> <span class="nx">result</span><span class="p">);</span>
+
+        <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="c1">//promises enable you to get out of the callback shell</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">"#username input"</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">'keyup'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+
+        <span class="kd">var</span> <span class="nx">user</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span> <span class="c1">//string</span>
+
+        <span class="nx">username</span> <span class="o">=</span> <span class="nx">when</span><span class="p">(</span><span class="nx">user</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nx">nonEmpty</span><span class="p">(</span><span class="nx">user</span><span class="p">))</span> <span class="p">{</span>
+
+            <span class="nx">usernameEntered</span> <span class="o">=</span> <span class="nx">when</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+
+            <span class="c1">//simulate availabilityPending</span>
+            <span class="nx">setVisibility</span><span class="p">(</span><span class="nx">usernameAjaxIndicator</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+
+            <span class="c1">//jQuery AJAX calls implement a promise interface</span>
+            <span class="nx">jqAvailabilityRequest</span> <span class="o">=</span> <span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">"/usernameavailable/"</span> <span class="o">+</span> <span class="nx">user</span><span class="p">);</span>
+
+            <span class="nx">usernameAvailable</span> <span class="o">=</span> <span class="nx">when</span><span class="p">(</span><span class="nx">jqAvailabilityRequest</span><span class="p">);</span>
+
+            <span class="nx">usernameAvailable</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">bool</span><span class="p">)</span> <span class="p">{</span>
+
+                <span class="nx">setVisibility</span><span class="p">(</span><span class="nx">usernameAjaxIndicator</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+
+                <span class="c1">//when usernameavailable is false, show unavailabilityLabel</span>
+                <span class="nx">setVisibility</span><span class="p">(</span><span class="nx">unavailabilityLabel</span><span class="p">,</span> <span class="o">!</span><span class="nx">bool</span><span class="p">);</span>
+            <span class="p">});</span>
+
+
+
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">usernameEntered</span> <span class="o">=</span> <span class="nx">when</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="nx">setButtonEnabled</span><span class="p">();</span>
+    <span class="p">});</span>
+
+    <span class="nx">$</span><span class="p">(</span><span class="s2">"#fullname input"</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">'keyup'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">strFullname</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span> <span class="c1">//string</span>
+        <span class="nx">fullname</span> <span class="o">=</span> <span class="nx">when</span><span class="p">(</span><span class="nx">strFullname</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nx">nonEmpty</span><span class="p">(</span><span class="nx">strFullname</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nx">fullnameEntered</span> <span class="o">=</span> <span class="nx">when</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">fullnameEntered</span> <span class="o">=</span> <span class="nx">when</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="nx">setButtonEnabled</span><span class="p">();</span>
+    <span class="p">});</span>
+
+    <span class="nx">registerButton</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'click'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">prop</span><span class="p">(</span><span class="s1">'disabled'</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+
+        <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+
+        <span class="nx">setVisibility</span><span class="p">(</span><span class="nx">registerAjaxIndicator</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+
+        <span class="kd">var</span> <span class="nx">input</span> <span class="o">=</span> <span class="nx">when</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span> <span class="nx">fullname</span><span class="p">);</span>
+
+
+        <span class="nx">input</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">values</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+                <span class="nx">type</span> <span class="o">:</span> <span class="s2">"post"</span><span class="p">,</span>
+                <span class="nx">url</span> <span class="o">:</span> <span class="s2">"/register"</span><span class="p">,</span>
+                <span class="nx">contentType</span> <span class="o">:</span> <span class="s2">"application/json"</span><span class="p">,</span>
+                <span class="nx">data</span> <span class="o">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+                    <span class="nx">username</span> <span class="o">:</span> <span class="nx">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="nx">fullname</span> <span class="o">:</span> <span class="nx">values</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="p">}),</span>
+                <span class="nx">success</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">alert</span><span class="p">(</span><span class="s2">"Username: "</span> <span class="o">+</span> <span class="nx">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">" Fullname: "</span> <span class="o">+</span> <span class="nx">values</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+
+                    <span class="nx">$</span><span class="p">(</span><span class="s2">"#username input"</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="s1">''</span><span class="p">);</span>
+                    <span class="nx">$</span><span class="p">(</span><span class="s2">"#fullname input"</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="s1">''</span><span class="p">);</span>
+
+                    <span class="nx">setVisibility</span><span class="p">(</span><span class="nx">registerAjaxIndicator</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+
+                    <span class="nb">window</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">'demo3.html'</span><span class="p">,</span> <span class="s2">"_self"</span><span class="p">);</span>  <span class="c1">//refresh</span>
+                <span class="p">}</span>
+            <span class="p">});</span>
+        <span class="p">});</span>
+
+
+    <span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+	
+  </body>
+</html>

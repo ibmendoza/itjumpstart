@@ -1,0 +1,296 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>ITJUMPSTART</title>
+
+	<link href="css/main.css" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="css/bootstrap-combined.css"/>
+    <script src="lib/jquery.js"></script>
+	<script src="lib/jqready.js"></script>
+    <script src="lib/bootstrap.js"></script>
+	<script src="lib/helper.js"></script>
+	<script src="lib/dust.js"></script>
+	<script src="lib/ace/ace.js"></script>
+	<script src="lib/ace/mode-javascript.js"></script>
+	<script src="lib/ace/mode-html.js"></script>
+	<script src="lib/ace/theme-monokai.js"></script>
+	<script src="lib/spahql-min.js"/></script>
+	<script src="lib/data.js"/></script>
+	<script src="lib/common.js"/></script>
+	<script src="lib/Bacon.js"/></script>
+	<script src="lib/jquery.mockjax.js"></script>
+	<script src="lib/mocks.js"></script>
+
+  </head>
+  
+<body style="background-image:url(images/rain.jpg); color: white">
+  
+<script type="text/javascript">
+	$(jqready)
+</script>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar">
+            <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+          </button>
+          <a class="brand">ITJUMPSTART</a>
+          <div>
+            <ul class="nav">
+              <li class="active">
+                <a href="index.html"><p class="home">Home</p></a>
+              </li>
+
+            </ul>
+          </div>
+          <!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+  
+    <div class="container">
+	
+	<ul class="nav nav-tabs">
+	
+	<li class="dropdown">
+		<a class="dropdown-toggle" data-toggle="dropdown" href="#">Bacon.js
+			<b class="caret"></b>
+		</a>
+		<ul class="dropdown-menu">
+			<li><a id="hrefBaconMergeScan" href="#">Merge and Scan</a></li>
+			<li><a id="hrefFilter" href="#">Filter EventStream</a></li>
+			<li><a id="hrefBus" href="#">Publish/Subscribe with Bus</a></li>
+			<li><a id="hrefProperty" href="#">EventStream and Property</a></li>
+			<li><a id="hrefFilterProperty" href="#">Filter Property-based EventStream </a></li>
+			<li><a id="hrefCombine" href="#">Combine EventStream</a></li>
+		</ul>
+	</li>
+	
+	<li class="dropdown">
+		<a class="dropdown-toggle" data-toggle="dropdown" href="#">Presentation Layer
+			<b class="caret"></b>
+		</a>
+		<ul class="dropdown-menu">
+			<li><a id="plOffset" href="#">Bootstrap offsetting columns</a></li>
+			<li><a id="plNesting" href="#">Bootstrap nesting columns</a></li>
+			<li><a id="plDust" href="#">Templating with Dust.js</a></li>
+			<li><a id="plSpahQL" href="#">JSON query with SpahQL</a></li>
+			<li><a id="plDataBinding" href="#">Data binding with SpahQL</a></li>
+		</ul>
+	</li>
+	
+	</ul>
+	
+	<div class="row-fluid">
+		<div class="span12">
+			<span id="labelTitle" class="label label-info"></span>
+		</div>
+	</div> 
+	
+	<div id="divHTML" class="row-fluid divSection">
+		<div class="span12">
+			<span class="label label-warning">HTML</span>
+			<div id="editor"></div>
+		</div>
+	</div> 
+
+	<div id="divJS" class="row-fluid divSection">
+		<div class="span12">
+			<span class="label label-important">JavaScript</span>
+			<div id="editor2"></div>
+		</div>	
+	</div>
+	
+	<br>
+	
+	</div>
+	
+	<br><br>
+	
+	<div id="divResult" class="container divSection">
+	</div>
+	
+	<div id="divDust" class="container divSection">
+	<div id="name-tpl">
+		<h1>{name} {lastname}</h1>
+	</div>
+	
+	<div class="row">
+		<div class="span4">
+			<button type="button" class="btn btn-block btn-primary">Span 4</button>  
+		</div>
+		
+		<div class="span8">
+			<button id="btnSpan8" type="button" class="btn btn-block btn-danger">
+			<div id="btn-tpl">
+				{btnname} 
+			</div>
+			</button>  
+		</div>
+		
+	<br></br>
+	
+	<div class="span4" >
+		<select id="countries-tpl">
+			{#countries}
+				<option value="{id}">{value}</option>
+			{/countries}
+		</select>
+	</div>
+	
+	<div class="span8" >
+		<ul id="friends-tpl">
+			{#friends}
+				<li>{name}, {age}{~n}</li>
+			{:else}
+				<p>You have no friends!</p>
+			{/friends}
+		</ul>	
+	</div>
+	
+	</div>  
+	</div> <!--divDust-->
+	
+	<div id="divSpahQL" class="container divSection">
+	
+	<div class="row">
+		<div class="span6">
+			<strong>JSON data</strong><br>
+			<textarea id="txtData" rows="10" cols="50"></textarea> <br><br>
+			<strong>Just copy the JSON data to these online JSON viewers</strong> <br>
+			<a href="http://jsonviewer.stack.hu/" target="_blank">http://jsonviewer.stack.hu/</a> <br>
+			<a href="http://json.parser.online.fr/" target="_blank">http://json.parser.online.fr/</a> <br>
+			<label>Or open data.js with Notepad++ using Json Viewer from JSTool plugin</label><br><br>
+		</div>
+		
+		<div class="span6">
+			<strong>Put one of these queries at the box one at a time:</strong> <br><br>
+			<label>/*/name</label>
+			<label>/*/products/*/name</label>
+			<label>/*/products/0/name</label>
+			<label>/0/products/*/name</label>
+			<label>/0/products/*/price</label>
+			<label>/0/products/*</label>
+			<label>/0/products/37/name</label>
+			<label>/0/products/37/price</label>
+			<textarea id="txt">/*/name</textarea><br>
+			<strong>Notes:</strong>
+			<label>* is a wildcard</label>
+			<label>0 denotes the first item (SpahQL is zero-based)</label>
+			<label>1 denotes the second item (and so on)</label>
+			<label>Try your own combination!</label>
+
+			<button id="btnPaths">Paths</button>
+			<button id="btnValues">Values</button>
+			<button id="btnLength">Length</button>
+		</div>
+	</div>  
+	</div> <!--divSpahQL-->
+	
+	<div id="divDataBinding" class="container divSection">
+	<div class="row">	
+		<div class="span12">
+			<button id="btnClick">click</button>
+			<select id="cmbCategory"></select>
+			<select id="cmbVehicles"></select>
+			<span>Unit Price: </span>
+			<span id="txtPrice"></span>
+			<input id="fldQty" type="text"></input>
+			<span id="txtSubtotal"></span>		
+		</div>
+	</div>
+	</div> <!--divDataBinding-->
+	
+	<div id="divBaconMergeScan" class="container divSection">
+	<div class="row">	
+		<div class="span12">
+			<button id="plus">Plus</button>
+			<button id="minus">Minus</button>
+			<textarea id="sum"></textarea>	
+		</div>
+	</div>
+	</div> <!--divBaconMergeScan-->
+	
+	<div id="divBaconFilter" class="container divSection">
+	<div class="row">	
+		<div class="span6">
+			<label>Enter any character whose length is at least 5:</label>
+			<input type="text" id="input1" class="input-large"></input>
+		</div>
+		<div class="span6">
+			<label>Enter at least 7-digit number:</label>
+			<input type="text" id="input2" class="input-large"></input>
+		</div>
+	</div>
+	</div> <!--divBaconFilter-->
+	
+	<div id="divBaconBus" class="container divSection">
+	<div class="row">	
+		<div class="span6">
+			<button id="btnStart" type="button" class="btn btn-block btn-primary">Start</button> 
+		</div>
+		<div class="span6">
+			<textarea id="txtArea" rows="10" cols="50"></textarea>
+		</div>
+	</div>
+	</div> <!--divBaconBus-->
+	
+	<div id="divBaconProperty" class="container divSection">
+	<div class="row">	
+		<div class="span12">
+			<label>Button disables if username or fullname is empty</label>
+		</div>
+		<div class="span4">
+			<label>Username</label>
+			<input type="text" id="bpInput1" class="input-large"></input>
+			<label>Fullname</label>
+			<input type="text" id="bpInput2" class="input-large"></input>
+			<button type="button" class="btn btn-primary" id="btn">Register</button>
+		</div>
+	</div>
+	</div> <!--divBaconProperty-->
+	
+	<div id="divBaconFilterProperty" class="container divSection">
+	<div class="row">	
+		<div class="span12">
+			<label>Button disables if username or fullname is empty or username is unavailable</label>
+		</div>
+		<div class="span12">
+			<label>Username</label>
+			<input type="text" id="username" class="input-large"></input>
+			<span id="username-unavailable" class="label label-important">Username is unavailable</span>
+			<label>Fullname</label>
+			<input type="text" id="fullname" class="input-large"></input>
+			<button type="button" class="btn btn-primary" id="btnRegister">Register</button>
+		</div>
+	</div>
+	</div> <!--divBaconFilterProperty-->
+	
+	<div id="divBaconCombine" class="container divSection">
+	<div class="row">	
+		<div class="span12">
+			<label>Spreadsheet example using Combine</label>
+		</div>
+		<div class="span12">
+			<span>A</span>
+			<input id="inputA" type="text" class="input-large"></input>
+			<span>B</span>
+			<input id="inputB" type="text" class="input-large"></input>  <br><br>
+			<strong>Combine</strong> <br><br>
+			<span>A+B</span>
+			<input id="total" type="text" class="input-large"></input>
+			<span>A-B</span>
+			<input id="subtract" type="text" class="input-large"></input>
+			<br><br>
+			<span>(A+B)*(A-B)</span>
+			<input id="times" type="text" class="input-large"></input> <br><br>
+		</div>
+	</div>
+	</div> <!--divBaconCombine-->
+	
+  </body>
+</html>

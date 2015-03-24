@@ -1,0 +1,595 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+
+<link href="css/main.css" rel="stylesheet">	
+	
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta http-equiv="imagetoolbar" content="false" />
+<title>ITJUMPSTART.NET</title>
+<link rel="stylesheet" type="text/css" href="css/basic.css" />
+<link rel="stylesheet" type="text/css" href="css/accordion.css" />
+
+
+    <link rel="stylesheet" href="css/bootstrap-combined.css"/>
+    <script src="lib/jquery.js"></script>
+    <script src="lib/bootstrap.js"></script>
+	<script src="lib/director.min.js"></script>
+	<script src="accordion.js"></script>
+	<script src="lib/ace/ace.js"></script>
+	<script src="lib/ace/mode-javascript.js"></script>
+	<script src="lib/ace/mode-html.js"></script>
+	<script src="lib/spahql-min.js"/></script>
+	<script src="lib/data.js"/></script>
+	<script src="lib/common.js"/></script>
+	<script src="lib/Bacon.js"/></script>
+	
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar">
+            <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+          </button>
+          <a class="brand">ITJUMPSTART</a>
+          <div>
+            <ul class="nav">
+              <li class="active">
+                <a href="index.html"><p class="home">Home</p></a>
+              </li>
+            </ul>
+          </div>
+          <!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+</head>
+
+<body style="background-image:url(images/blue.jpg)">
+	
+<div id="container" class="container">
+
+<div class="row-fluid">
+<div class="span2">
+
+<!--<div id="container">--> 
+	<dl class="accordion">
+		<dt>
+			<a href="#"><span></span> JavaScript</a>
+		</dt>
+		<dd>
+			<ul class="nav nav-list">
+				<li class="active"><a href="#jsvarscope">Variable scope</a></li>
+				<li><a href="#jsvarhoisting">Variable Hoisting</a></li>
+				<li><a href="#jsdynbinding">Dynamic Binding</a></li>
+				<li><a href="#jsmutable">Mutable Locals</a></li>
+				<li><a href="#jsobjects">Objects</a></li>
+				<li><a href="#jsarray">Arrays</a></li>
+				<li><a href="#jsfunc">Functions</a></li>
+				<li><a href="#jsclosure">Closure</a></li>
+				<li><a href="#jsval">Pass-by-value</a></li>
+				<li><a href="#jsref">Pass-by-reference</a></li>
+				<li><a href="#jslazyeval">Call-by-need</a></li>
+				<li><a href="#jspromise">Call-by-future</a></li>
+				<li><a href="#jscallback">Callback</a></li>
+				
+			</ul>	
+		</dd>
+		
+		<dt>
+			<a href="#"><span></span> Bootstrap 2</a>
+		</dt>
+		<dd>
+			<ul class="nav nav-list">
+				<li><a href="#container">Container</a></li>
+				<li><a href="#fixedgrid">Fixed Grid</a></li>
+				<li><a href="#offsetcolumns">Offset Columns</a></li>
+				<li><a href="#nestingcolumns">Nesting Columns</a></li>
+				<li><a href="#fluidgrid">Fluid Grid</a></li>
+				<li><a href="#navigationtabs">Navigation Tabs</a></li>
+				<li><a href="#navbar">Navigation Bar</a></li>
+				<li><a href="#breadcrumb">Breadcrumb</a></li>
+				<li><a href="#pagination">Pagination</a></li>
+				<li><a href="#labelnbadge">Labels and Badges</a></li>
+				<li><a href="#alrt">Alert</a></li>
+				<li><a href="#tbl">Table</a></li>
+				<li><a href="#btn">Button</a></li>
+				<li><a href="#toggle">Toggle</a></li>
+				<li><a href="#modal">Modal</a></li>
+			</ul>
+		</dd>
+			
+	</dl>
+
+<!--</div> --> 
+</div> <!-- span2 --> 
+
+<div class="span9 offset1">
+
+<div id="pageHeader" class="page-header" style="color: white">
+
+</div>
+
+	<div id="divHTML" class="row-fluid">
+		<div class="span12">
+			
+			<span class="label label-success">Live Editor</span>
+			
+			<br><br>
+			<div id="editor"></div>
+		</div>
+	</div> 
+	
+	<br>
+	
+	<button id="btnRenderHTML" type="button" class="btn btn-info">Render HTML</button>  
+	
+	<button id="btnRunJS" type="button" class="btn btn-warning">Run JavaScript</button>  
+	
+	<br><br>
+		
+	<div id="divResult">
+	</div>	
+</div>
+
+</div> <!-- row-fluid --> 
+
+</div>
+
+<script type="text/javascript">
+
+$(function() {
+
+	function base64Decode(s) {
+		return window.atob(s)
+	}
+	
+	function setEditor(ed, div) {
+		setEditorValue(ed, base64Decode(div))
+	}
+
+	  var container = function () { 
+	  
+		renderHTML('', 1)
+		
+		$("#pageHeader").html('<p><span style="color:#008000">Bootstrap Container</span></p><p>A fixed container layout provides a common fixed-width (and optionally responsive) layout requiring only <code>class="container"</code> on your page. If you want a fluid container layout, use <code>class="container-fluid"</code> instead</p>')
+		
+	var div = "PGRpdiBjbGFzcz0iY29udGFpbmVyIj4KPGRpdiBjbGFzcz0icm93Ij4KCTxkaXYgY2xhc3M9InNwYW4yIj4KCQk8YnV0dG9uIHR5cGU9ImJ1dHRvbiIgY2xhc3M9ImJ0biBidG4tYmxvY2sgYnRuLWludmVyc2UiPlNwYW4gMjwvYnV0dG9uPgoJPC9kaXY+Cgk8ZGl2IGNsYXNzPSJzcGFuMTAiPgoJCTxidXR0b24gdHlwZT0iYnV0dG9uIiBjbGFzcz0iYnRuIGJ0bi1ibG9jayBidG4tc3VjY2VzcyI+U3BhbiAxMDwvYnV0dG9uPgoJPC9kaXY+CjwvZGl2Pgo8L2Rpdj4="
+	
+		setEditor(editor, div)
+		
+	  },
+	
+       fixedgrid = function () { 
+	  
+		renderHTML('', 1)
+		
+		$("#pageHeader").html('<p><span style="color:#008000">Bootstrap Fixed Grid</span></p><p>The default Bootstrap grid system utilizes 12 columns, making for a 940px wide container without responsive features enabled. With the responsive CSS file added, the grid adapts to be 724px and 1170px wide depending on your viewport. Below 767px viewports, the columns become fluid and stack vertically.</p><p>For a simple two column layout, create a .row and add the appropriate number of .span* columns. As this is a 12-column grid, each .span* spans a number of those 12 columns, and should always add up to 12 for each row (or the number of columns in the parent).</p>')
+		
+	var div = "PGRpdiBjbGFzcz0icm93Ij4KCTxkaXYgY2xhc3M9InNwYW40Ij4KCQk8YnV0dG9uIHR5cGU9ImJ1dHRvbiIgY2xhc3M9ImJ0biBidG4tYmxvY2sgYnRuLXByaW1hcnkiPlNwYW4gNDwvYnV0dG9uPgoJPC9kaXY+Cgk8ZGl2IGNsYXNzPSJzcGFuOCI+CgkJPGJ1dHRvbiB0eXBlPSJidXR0b24iIGNsYXNzPSJidG4gYnRuLWJsb2NrIGJ0bi1kYW5nZXIiPlNwYW4gODwvYnV0dG9uPgoJPC9kaXY+CjwvZGl2Pg=="
+	
+		setEditor(editor, div)
+		
+	  },
+          
+		  offsetcolumns = function () { 
+		  
+		  renderHTML('', 1)
+		
+		$("#pageHeader").html('<p><span style="color:#008000">Bootstrap Offset Columns</span></p><p>Move columns to the right using .offset* classes. Each class increases the left margin of a column by a whole column. For example, .offset4 moves .span4 over four columns.</p>')
+		
+	var div = "PGRpdiBjbGFzcz0iZGl2Qm9vdE9mZnNldCI+Cgk8ZGl2IGNsYXNzPSJyb3ctZmx1aWQiPgoJCTxkaXYgY2xhc3M9InNwYW40Ij4KCQkJPGJ1dHRvbiB0eXBlPSJidXR0b24iIGNsYXNzPSJidG4gYnRuLWJsb2NrIGJ0bi1wcmltYXJ5Ij5TcGFuIDQ8L2J1dHRvbj4gIAoJCTwvZGl2PgoJCQoJCTxkaXYgY2xhc3M9InNwYW44Ij4KCQkJPGJ1dHRvbiB0eXBlPSJidXR0b24iIGNsYXNzPSJidG4gYnRuLWJsb2NrIGJ0bi1kYW5nZXIiPlNwYW4gODwvYnV0dG9uPiAgCgkJPC9kaXY+Cgk8L2Rpdj4gIAoKCTxicj4KCQoJPGRpdiBjbGFzcz0icm93LWZsdWlkIj4JCgkJPGRpdiBjbGFzcz0ic3BhbjQiPgoJCQk8YnV0dG9uIHR5cGU9ImJ1dHRvbiIgY2xhc3M9ImJ0biBidG4tYmxvY2sgYnRuLXByaW1hcnkiPlNwYW4gNDwvYnV0dG9uPiAgCgkJPC9kaXY+CgkJPGRpdiBjbGFzcz0ic3BhbjUgb2Zmc2V0MyI+CgkJCTxidXR0b24gdHlwZT0iYnV0dG9uIiBjbGFzcz0iYnRuIGJ0bi1ibG9jayBidG4td2FybmluZyI+U3BhbiA1IG9mZnNldCAzPC9idXR0b24+ICAKCQk8L2Rpdj4JCQoJPC9kaXY+ICAKCQoJPGJyPgoJCgk8ZGl2IGNsYXNzPSJyb3ctZmx1aWQiPgkKCQk8ZGl2IGNsYXNzPSJzcGFuNCI+CgkJCTxidXR0b24gdHlwZT0iYnV0dG9uIiBjbGFzcz0iYnRuIGJ0bi1ibG9jayBidG4tcHJpbWFyeSI+U3BhbiA0PC9idXR0b24+ICAKCQk8L2Rpdj4KCQk8ZGl2IGNsYXNzPSJzcGFuMiBvZmZzZXQyIj4KCQkJPGJ1dHRvbiB0eXBlPSJidXR0b24iIGNsYXNzPSJidG4gYnRuLWJsb2NrIGJ0bi1zdWNjZXNzIj5TcGFuIDIgb2Zmc2V0IDI8L2J1dHRvbj4gIAoJCTwvZGl2PgkKCQk8ZGl2IGNsYXNzPSJzcGFuMyBvZmZzZXQxIj4KCQkJPGJ1dHRvbiB0eXBlPSJidXR0b24iIGNsYXNzPSJidG4gYnRuLWJsb2NrIGJ0bi1pbmZvIj5TcGFuIDMgb2Zmc2V0MTwvYnV0dG9uPiAgCgkJPC9kaXY+CQkKCTwvZGl2PiAgCjwvZGl2Pg=="
+	
+		setEditor(editor, div)
+	  },
+	  
+	  nestingcolumns = function () { 
+	  
+		renderHTML('', 1)
+		
+		$("#pageHeader").html('<p><span style="color:#008000">Bootstrap Nesting Columns</span></p><p>To nest your content with the default grid, add a new .row and set of .span* columns within an existing .span* column. Nested rows should include a set of columns that add up to the number of columns of its parent.</p>')
+		
+	var div = "PGRpdiBjbGFzcz0icm93LWZsdWlkIj4KCTxkaXYgY2xhc3M9InNwYW4xMiI+CgkJPGJ1dHRvbiB0eXBlPSJidXR0b24iIGNsYXNzPSJidG4gYnRuLWJsb2NrIGJ0bi1kYW5nZXIiPlNwYW4gMTI8L2J1dHRvbj4gIAoJCTxkaXYgY2xhc3M9InJvdy1mbHVpZCI+CgkJCTxkaXYgY2xhc3M9InNwYW44Ij4KCQkJCTxidXR0b24gdHlwZT0iYnV0dG9uIiBjbGFzcz0iYnRuIGJ0bi1ibG9jayBidG4taW5mbyI+TGV2ZWwgMiBzcGFuIDgKCQkJCTwvYnV0dG9uPiAKCQkJCTxkaXYgY2xhc3M9InJvdy1mbHVpZCI+CgkJCQkJPGRpdiBjbGFzcz0ic3BhbjMiPgoJCQkJCQk8YnV0dG9uIHR5cGU9ImJ1dHRvbiIgY2xhc3M9ImJ0biBidG4tYmxvY2sgYnRuLXN1Y2Nlc3MiPkxldmVsIDMgc3BhbiAzCgkJCQkJCTwvYnV0dG9uPiAJCQoJCQkJCTwvZGl2PgoJCQkJCQoJCQkJCTxkaXYgY2xhc3M9InNwYW45Ij4KCQkJCQkJPGJ1dHRvbiB0eXBlPSJidXR0b24iIGNsYXNzPSJidG4gYnRuLWJsb2NrIGJ0bi1kZWZhdWx0Ij5MZXZlbCAzIHNwYW4gOQoJCQkJCQk8L2J1dHRvbj4KCQkJCQk8L2Rpdj4gCQkJCQkJCgkJCQk8L2Rpdj4KCQkJPC9kaXY+CgkJCTxkaXYgY2xhc3M9InNwYW40Ij4KCQkJCTxidXR0b24gdHlwZT0iYnV0dG9uIiBjbGFzcz0iYnRuIGJ0bi1ibG9jayBidG4td2FybmluZyI+TGV2ZWwgMiBzcGFuIDQKCQkJCTwvYnV0dG9uPiAKCQkJPC9kaXY+CgkJPC9kaXY+CQoJPC9kaXY+CjwvZGl2PiAg"
+	
+		setEditor(editor, div)
+	  },
+	  
+	  fluidgrid = function () { 
+	  
+		renderHTML('', 1)
+		
+		$("#pageHeader").html('<p><span style="color:#008000">Bootstrap Fluid Grid</span></p><p>The fluid grid system uses percents instead of pixels for column widths. It has the same responsive capabilities as the fixed grid system, ensuring proper proportions for key screen resolutions and devices.</p><p>Make any row &quot;fluid&quot; by changing .row to .row-fluid. The column classes stay the exact same, making it easy to flip between fixed and fluid grids.</p>')
+
+		
+	var div = "PGRpdiBjbGFzcz0icm93LWZsdWlkIj4KCTxkaXYgY2xhc3M9InNwYW40Ij4KCQk8YnV0dG9uIHR5cGU9ImJ1dHRvbiIgY2xhc3M9ImJ0biBidG4tYmxvY2sgYnRuLXByaW1hcnkiPlNwYW4gNDwvYnV0dG9uPgoJPC9kaXY+CgoJPGRpdiBjbGFzcz0ic3BhbjgiPgoJCTxidXR0b24gdHlwZT0iYnV0dG9uIiBjbGFzcz0iYnRuIGJ0bi1ibG9jayBidG4tZGFuZ2VyIj5TcGFuIDg8L2J1dHRvbj4KCTwvZGl2Pgo8L2Rpdj4="
+	
+		setEditor(editor, div)
+		
+	  },
+	  
+	  navigationtabs = function() {
+	  
+		renderHTML('', 1)
+		
+		$("#pageHeader").html('<p><span style="color:#008000">Bootstrap Navigation Tab</span></p><p>All nav components &mdash;tabs, pills, and lists&mdash;<strong>share the same base markup and styles</strong> through the <code>.nav</code> class.</p>')
+
+		
+	var div = "PHVsIGNsYXNzPSJuYXYgbmF2LXRhYnMiPgoJCgk8bGkgY2xhc3M9ImRyb3Bkb3duIj4KCQk8YSBjbGFzcz0iZHJvcGRvd24tdG9nZ2xlIiBkYXRhLXRvZ2dsZT0iZHJvcGRvd24iIGhyZWY9IiMiPmpRdWVyeSAxMDEKCQkJPGIgY2xhc3M9ImNhcmV0Ij48L2I+CgkJPC9hPgoJCTx1bCBjbGFzcz0iZHJvcGRvd24tbWVudSI+CgkJCTxsaT48YSBocmVmPSIjIj5BY3Rpb248L2E+PC9saT4KCQkJPGxpPjxhIGhyZWY9IiMiPkFub3RoZXIgYWN0aW9uPC9hPjwvbGk+CgkJCTxsaT48YSBocmVmPSIjIj5Tb21ldGhpbmcgZWxzZSBoZXJlPC9hPjwvbGk+CgkJCTxsaSBjbGFzcz0iZGl2aWRlciI+PC9saT4KCQkJPGxpPjxhIGhyZWY9IiMiPlNlcGFyYXRlZCBsaW5rPC9hPjwvbGk+CgkJPC91bD4KCTwvbGk+CgkKCTxsaSBjbGFzcz0iZHJvcGRvd24iPgoJCTxhIGNsYXNzPSJkcm9wZG93bi10b2dnbGUiIGRhdGEtdG9nZ2xlPSJkcm9wZG93biIgaHJlZj0iIyI+QmFjb24uanMKCQkJPGIgY2xhc3M9ImNhcmV0Ij48L2I+CgkJPC9hPgoJCTx1bCBjbGFzcz0iZHJvcGRvd24tbWVudSI+CgkJCTxsaT48YSBocmVmPSIjIj5NZXJnZSBhbmQgU2NhbjwvYT48L2xpPgoJCQk8bGk+PGEgaHJlZj0iIyI+RmlsdGVyIEV2ZW50U3RyZWFtPC9hPjwvbGk+CgkJCTxsaT48YSBocmVmPSIjIj5QdWJsaXNoL1N1YnNjcmliZSB3aXRoIEJ1czwvYT48L2xpPgoJCQk8bGk+PGEgaHJlZj0iIyI+RXZlbnRTdHJlYW0gYW5kIFByb3BlcnR5PC9hPjwvbGk+CgkJCTxsaT48YSBocmVmPSIjIj5GaWx0ZXIgUHJvcGVydHktYmFzZWQgRXZlbnRTdHJlYW0gPC9hPjwvbGk+CgkJCTxsaT48YSBocmVmPSIjIj5Db21iaW5lIEV2ZW50U3RyZWFtPC9hPjwvbGk+CgkJPC91bD4KCTwvbGk+CjwvdWw+"
+	
+		setEditor(editor, div)
+		
+	  },
+	  
+	  navbar = function() {
+	  
+		renderHTML('', 1)
+		
+		$("#pageHeader").html('<p><span style="color:#008000">Bootstrap NavBar</span><p>To start, navbars are static (not fixed to the top) and include support for a project name and basic navigation. Place one anywhere within a <code>.container</code>, which sets the width of your site and content.</p>')
+
+		
+	var div = "PGRpdiBjbGFzcz0ibmF2YmFyIj4KICAgIDxkaXYgY2xhc3M9Im5hdmJhci1pbm5lciI+CiAgICA8YSBjbGFzcz0iYnJhbmQiIGhyZWY9IiMiPlRpdGxlPC9hPgogICAgPHVsIGNsYXNzPSJuYXYiPgogICAgPGxpIGNsYXNzPSJhY3RpdmUiPjxhIGhyZWY9IiMiPkhvbWU8L2E+PC9saT4KICAgIDxsaT48YSBocmVmPSIjIj5MaW5rPC9hPjwvbGk+CiAgICA8bGk+PGEgaHJlZj0iIyI+TGluazwvYT48L2xpPgogICAgPC91bD4KICAgIDwvZGl2Pgo8L2Rpdj4="
+	
+		setEditor(editor, div)
+		
+	  },
+	  
+	  breadcrumb = function() {
+	  
+		renderHTML('', 1)
+		
+		$("#pageHeader").html('<p><span style="color:#008000">Bootstrap Breadcrumb</span><p>Breadcrumb provides context when you are in a specific page')
+
+		
+	var div = "PHVsIGNsYXNzPSJicmVhZGNydW1iIj4KPGxpPjxhIGhyZWY9IiMiPkhvbWU8L2E+IDxzcGFuIGNsYXNzPSJkaXZpZGVyIj4mcmFxdW87PC9zcGFuPjwvbGk+CjxsaT48YSBocmVmPSIjIj5Tb2Z0d2FyZTwvYT4gPHNwYW4gY2xhc3M9ImRpdmlkZXIiPiZyYXF1bzs8L3NwYW4+PC9saT4KPGxpPjxhIGhyZWY9IiMiPkxpbnV4PC9hPjwvbGk+CjwvdWw+"
+	
+		setEditor(editor, div)
+		
+	  },
+	  
+	  pagination = function() {
+	  
+		renderHTML('', 1)
+		
+		$("#pageHeader").html('<p><span style="color:#008000">Bootstrap Pagination</span><p>Simple pagination inspired by Rdio, great for apps and search results. The large block is hard to miss, easily scalable, and provides large click areas.')
+
+		
+	var div = "PGRpdiBjbGFzcz0icGFnaW5hdGlvbiI+CiAgICA8dWw+CiAgICA8bGk+PGEgaHJlZj0iIyI+UHJldjwvYT48L2xpPgogICAgPGxpPjxhIGhyZWY9IiMiPjE8L2E+PC9saT4KICAgIDxsaT48YSBocmVmPSIjIj4yPC9hPjwvbGk+CiAgICA8bGk+PGEgaHJlZj0iIyI+MzwvYT48L2xpPgogICAgPGxpPjxhIGhyZWY9IiMiPjQ8L2E+PC9saT4KICAgIDxsaT48YSBocmVmPSIjIj41PC9hPjwvbGk+CiAgICA8bGk+PGEgaHJlZj0iIyI+TmV4dDwvYT48L2xpPgogICAgPC91bD4KPC9kaXY+"
+	
+		setEditor(editor, div)
+		
+	  },
+	  
+	  labelnbadge = function() {
+	  
+		renderHTML('', 1)
+		
+		$("#pageHeader").html('<p><span style="color:#008000">Bootstrap Labels and Badges</span><p>')
+
+		
+	var div = "PHNwYW4gY2xhc3M9ImxhYmVsIj5EZWZhdWx0PC9zcGFuPgo8c3BhbiBjbGFzcz0ibGFiZWwgbGFiZWwtc3VjY2VzcyI+U3VjY2Vzczwvc3Bhbj4KPHNwYW4gY2xhc3M9ImxhYmVsIGxhYmVsLXdhcm5pbmciPldhcm5pbmc8L3NwYW4+CjxzcGFuIGNsYXNzPSJsYWJlbCBsYWJlbC1pbXBvcnRhbnQiPkltcG9ydGFudDwvc3Bhbj4KPHNwYW4gY2xhc3M9ImxhYmVsIGxhYmVsLWluZm8iPkluZm88L3NwYW4+CjxzcGFuIGNsYXNzPSJsYWJlbCBsYWJlbC1pbnZlcnNlIj5JbnZlcnNlPC9zcGFuPgoKPGJyPjxicj4KCjxzcGFuIGNsYXNzPSJiYWRnZSI+MTwvc3Bhbj4KPHNwYW4gY2xhc3M9ImJhZGdlIGJhZGdlLXN1Y2Nlc3MiPjI8L3NwYW4+CjxzcGFuIGNsYXNzPSJiYWRnZSBiYWRnZS13YXJuaW5nIj40PC9zcGFuPgo8c3BhbiBjbGFzcz0iYmFkZ2UgYmFkZ2UtaW1wb3J0YW50Ij42PC9zcGFuPgo8c3BhbiBjbGFzcz0iYmFkZ2UgYmFkZ2UtaW5mbyI+ODwvc3Bhbj4KPHNwYW4gY2xhc3M9ImJhZGdlIGJhZGdlLWludmVyc2UiPjEwPC9zcGFuPg=="
+	
+		setEditor(editor, div)
+		
+	  },
+	  
+	  alrt = function() {
+	  
+		renderHTML('', 1)
+		
+		$("#pageHeader").html('<p><span style="color:#008000">Bootstrap Alert</span><p><p>Wrap any text and an optional dismiss button in <code>.alert</code> for a basic warning alert message.</p>')
+
+		
+	var div = "PGRpdiBjbGFzcz0iYWxlcnQgYWxlcnQtYmxvY2sgYWxlcnQtZXJyb3IiPgogICAgPGJ1dHRvbiB0eXBlPSJidXR0b24iIGNsYXNzPSJjbG9zZSIgZGF0YS1kaXNtaXNzPSJhbGVydCI+JnRpbWVzOzwvYnV0dG9uPgogICAgVGhpcyBpcyBhbiBhbGVydC1lcnJvciB3aXRoIGV4dHJhIHBhZGRpbmcgKGFsZXJ0LWJsb2NrKQo8L2Rpdj4KCjxkaXYgY2xhc3M9ImFsZXJ0IGFsZXJ0LWVycm9yIj4KICAgIDxidXR0b24gdHlwZT0iYnV0dG9uIiBjbGFzcz0iY2xvc2UiIGRhdGEtZGlzbWlzcz0iYWxlcnQiPiZ0aW1lczs8L2J1dHRvbj4KICAgIFRoaXMgaXMgYWxlcnQtZXJyb3IKPC9kaXY+Cgo8ZGl2IGNsYXNzPSJhbGVydCBhbGVydC1zdWNjZXNzIj4KICAgIDxidXR0b24gdHlwZT0iYnV0dG9uIiBjbGFzcz0iY2xvc2UiIGRhdGEtZGlzbWlzcz0iYWxlcnQiPiZ0aW1lczs8L2J1dHRvbj4KICAgIFRoaXMgaXMgYWxlcnQtc3VjY2Vzcwo8L2Rpdj4KCjxkaXYgY2xhc3M9ImFsZXJ0IGFsZXJ0LWluZm8iPgogICAgPGJ1dHRvbiB0eXBlPSJidXR0b24iIGNsYXNzPSJjbG9zZSIgZGF0YS1kaXNtaXNzPSJhbGVydCI+JnRpbWVzOzwvYnV0dG9uPgogICAgVGhpcyBpcyBhbGVydC1pbmZvCjwvZGl2Pg=="
+	
+		setEditor(editor, div)
+		
+	  },
+	  
+	  tbl = function() {
+	  
+		renderHTML('', 1)
+		
+		$("#pageHeader").html('<p><span style="color:#008000">Bootstrap Table</span><p>')
+
+		
+	var div = "PHRhYmxlIGNsYXNzPSJ0YWJsZSB0YWJsZS1zdHJpcGVkIHRhYmxlLWJvcmRlcmVkIHRhYmxlLWhvdmVyIHRhYmxlLWNvbmRlbnNlZCI+CjxjYXB0aW9uPlRhYmxlIENhcHRpb24gaGVyZTwvY2FwdGlvbj4KPHRoZWFkPgo8dHI+Cjx0aD5Db3VudHJ5PC90aD4KPHRoPkNhcGl0YWw8L3RoPgo8L3RyPgo8L3RoZWFkPgo8dGJvZHk+Cjx0ciBjbGFzcz0ic3VjY2VzcyI+Cjx0ZD5QaGlsaXBwaW5lczwvdGQ+Cjx0ZD5NYW5pbGE8L3RkPgo8L3RyPgoKPHRyIGNsYXNzPSJlcnJvciI+Cjx0ZD5Vbml0ZWQgU3RhdGVzIG9mIEFtZXJpY2E8L3RkPgo8dGQ+V2FzaGluZ3RvbiwgRC5DLjwvdGQ+CjwvdHI+Cgo8dHIgY2xhc3M9Indhcm5pbmciPgo8dGQ+SmFwYW48L3RkPgo8dGQ+VG9reW88L3RkPgo8L3RyPgoKPHRyIGNsYXNzPSJpbmZvIj4KPHRkPkNhbmFkYTwvdGQ+Cjx0ZD5PdHRhd2E8L3RkPgo8L3RyPgoKPC90Ym9keT4KPC90YWJsZT4="
+	
+		setEditor(editor, div)
+		
+	  },
+	  
+	  btn = function() {
+	  
+		renderHTML('', 1)
+		
+		$("#pageHeader").html('<p><span style="color:#008000">Bootstrap Button</span><p>')
+
+		
+	var div = "PHA+CjxidXR0b24gY2xhc3M9ImJ0biBidG4tbGFyZ2UgYnRuLXByaW1hcnkiIHR5cGU9ImJ1dHRvbiI+TGFyZ2UgYnV0dG9uPC9idXR0b24+CjxidXR0b24gY2xhc3M9ImJ0biBidG4tbGFyZ2UiIHR5cGU9ImJ1dHRvbiI+TGFyZ2UgYnV0dG9uPC9idXR0b24+CjwvcD4KPHA+CjxidXR0b24gY2xhc3M9ImJ0biBidG4taW5mbyIgdHlwZT0iYnV0dG9uIj5EZWZhdWx0IGJ1dHRvbjwvYnV0dG9uPgo8YnV0dG9uIGNsYXNzPSJidG4iIHR5cGU9ImJ1dHRvbiI+RGVmYXVsdCBidXR0b248L2J1dHRvbj4KPC9wPgo8cD4KPGJ1dHRvbiBjbGFzcz0iYnRuIGJ0bi1zbWFsbCBidG4tc3VjY2VzcyIgdHlwZT0iYnV0dG9uIj5TbWFsbCBidXR0b248L2J1dHRvbj4KPGJ1dHRvbiBjbGFzcz0iYnRuIGJ0bi1zbWFsbCIgdHlwZT0iYnV0dG9uIj5TbWFsbCBidXR0b248L2J1dHRvbj4KPC9wPgo8cD4KPGJ1dHRvbiBjbGFzcz0iYnRuIGJ0bi1taW5pIGJ0bi13YXJuaW5nIiB0eXBlPSJidXR0b24iPk1pbmkgYnV0dG9uPC9idXR0b24+CjxidXR0b24gY2xhc3M9ImJ0biBidG4tbWluaSBkaXNhYmxlZCIgdHlwZT0iYnV0dG9uIj5NaW5pIGJ1dHRvbiBkaXNhYmxlZDwvYnV0dG9uPgo8YnV0dG9uIGNsYXNzPSJidG4gYnRuLW1pbmkgYnRuLWludmVyc2UiIHR5cGU9ImJ1dHRvbiI+TWluaSBidXR0b24gaW52ZXJzZTwvYnV0dG9uPgo8L3A+CjxidXR0b24gY2xhc3M9ImJ0biBidG4tYmxvY2sgYnRuLWRhbmdlciIgdHlwZT0iYnV0dG9uIj5CbG9jay1sZXZlbCBidXR0b248L2J1dHRvbj4K"
+	
+		setEditor(editor, div)
+		
+	  },
+	  
+	  toggle = function() {
+	  
+		renderHTML('', 1)
+		
+		$("#pageHeader").html('<p><span style="color:#008000">Bootstrap Toggle</span><p>')
+
+		
+	var div = "PCEtLSBjb3VydGVzeSBvZiBodHRwOi8vZ2V0Ym9pbGVyc3RyYXAuY29tL2Jvb3RzdHJhcC1zdHlsZXMvIC0tPgo8YSBjbGFzcz0iYnRuIiBkYXRhLXRvZ2dsZT0iY29sbGFwc2UiIGRhdGEtdGFyZ2V0PSIjdG9nZ2xlLWRlbW8iPlRvZ2dsZSBTZWN0aW9uPC9hPgo8L3A+CjxkaXYgaWQ9InRvZ2dsZS1kZW1vIiBjbGFzcz0iY29sbGFwc2UiPgogIDxkaXYgY2xhc3M9Imhlcm8tdW5pdCI+CiAgICA8aDEgY2xhc3M9ImNlbnRlciI+VG9nZ2xlIERlbW88L2gxPgogIDwvZGl2Pgo8L2Rpdj4="
+	
+		setEditor(editor, div)
+		
+	  },
+	  
+	  modal = function() {
+	  
+		renderHTML('', 1)
+		
+		$("#pageHeader").html('<p><span style="color:#008000">Bootstrap Modal</span><p>')
+
+		
+	var div = "PCEtLSBjb3VydGVzeSBvZiBodHRwOi8vZ2V0Ym9pbGVyc3RyYXAuY29tL2Jvb3RzdHJhcC1zdHlsZXMvIC0tPgogIDxhIGhyZWY9IiNkZW1vLW1vZGFsIiByb2xlPSJidXR0b24iIGNsYXNzPSJidG4gYnRuLXN1Y2Nlc3MiIGRhdGEtdG9nZ2xlPSJtb2RhbCI+TGF1bmNoIE1vZGFsPC9hPgoKPGRpdiBpZD0iZGVtby1tb2RhbCIgY2xhc3M9Im1vZGFsIGhpZGUgZmFkZSBpbiIgcm9sZT0iY29udGVudCIgYXJpYS1oaWRkZW49InRydWUiPgogIDxkaXYgY2xhc3M9Im1vZGFsLWhlYWRlciI+CiAgICA8YnV0dG9uIHR5cGU9ImJ1dHRvbiIgY2xhc3M9ImNsb3NlIiBkYXRhLWRpc21pc3M9Im1vZGFsIiBhcmlhLWhpZGRlbj0idHJ1ZSI+JnRpbWVzOzwvYnV0dG9uPgogICAgPGgxIGNsYXNzPSJtb2RhbC1oMS10aXRsZSI+RGVtbyBNb2RhbDwvaDE+CiAgPC9kaXY+CiAgPGRpdiBjbGFzcz0ibW9kYWwtYm9keSBzZWFyY2gtbW9kYWwgcm93LWZsdWlkIj4KICAgIDxwPk9oIGhlbGxvITwvcD4JCQkJCiAgPC9kaXY+CiAgPGRpdiBjbGFzcz0ibW9kYWwtZm9vdGVyIj4KICAgIDxhIGhyZWY9IiMiIGNsYXNzPSJidG4gYnRuLXByaW1hcnkiIGRhdGEtZGlzbWlzcz0ibW9kYWwiIGFyaWEtaGlkZGVuPSJ0cnVlIiB0aXRsZT0iQ2xpY2sgdG8gZGlzbWlzcyBzZWFyY2giPkNsb3NlPC9hPgogIDwvZGl2Pgo8L2Rpdj4="
+	
+		setEditor(editor, div)
+		
+	  },
+	  
+	  jsvarscope = function() {
+	  
+		renderHTML('', 0)
+		
+		$("#pageHeader").html('<p><span style="color:#008000">JavaScript Variable Scope</span><p>')
+
+		
+	var div = "ZnVuY3Rpb24gZm9vKCkgewogICAgdmFyIGJhciA9ICdiYXIgaXMgbG9jYWwgdmFyaWFibGUnOwogICAgYWxlcnQoYmFyKQogICAgZyA9ICdNaW5pbWl6ZSB1c2Ugb2YgZ2xvYmFsIHZhcmlhYmxlcycKICAgIGZvciggdmFyIGkgPSAwOyBpIDwgMjsgaSsrICkgewogICAgICAgIC8vLi4uCiAgICB9CiAgICBhbGVydCgiVmFsdWUgb2YgbG9jYWwgdmFyaWFibGUgaSBpcyAiICsgaSkgLy9pIGlzIDIKICAgIAogICAgZm9yKCBqID0gMDsgaiA8IDM7IGorKyApIHsKICAgICAgICAvLy4uLgogICAgfQp9Cgpmb28oKSAvL2FsZXJ0IGxvY2FsIHZhcmlhYmxlCmFsZXJ0KCJWYWx1ZSBvZiBnbG9iYWwgdmFyaWFibGUgaiBpcyAiICsgaikgLy9qIGlzIDMKYWxlcnQoIlZhbHVlIG9mIHZhcmlhYmxlIGcgaXMgIiArIGcpIC8vYWNjZXNpYmxlIGV2ZW4gb3V0c2lkZSBvZiBmdW5jdGlvbiBmb28="
+	
+		setEditor(editor, div)
+		
+	  },
+	  
+	  jsvarhoisting = function() {
+	  
+		renderHTML('', 0)
+		
+		$("#pageHeader").html('<p><span style="color:#008000">JavaScript Variable Hoisting</span><p>')
+
+		
+	var div = "Ly9jb3VydGVzeSBvZiBNaWNoYWVsIEZvZ3VzCi8vIEphdmFTY3JpcHQgImhvaXN0cyIgdmFyaWFibGVzIHRvIHRoZSB0b3Agb2YKLy8gdGhlaXIgc2NvcGUuICBTbyB0aGUgZm9sbG93aW5nIGZ1bmN0aW9uOgogCmZ1bmN0aW9uIHByaW50SG9pc3ROYW1lKCkgewogIGFsZXJ0KCdIZWxsbywgJyArIG5hbWUpOyAvL25hbWUgaXMgdW5kZWZpbmVkCiAgdmFyIG5hbWUgPSAnQm9iJzsKICBhbGVydCgnSGVsbG8sICcgKyBuYW1lKQp9CiAKLy8gaXMgZXF1aXZhbGVudCB0byB0aGlzIGZ1bmN0aW9uOgogCmZ1bmN0aW9uIHByaW50TmFtZSgpIHsKICB2YXIgbmFtZTsgCiAgYWxlcnQoJ0hlbGxvLCAnICsgbmFtZSk7IAogIG5hbWUgPSAnQm9iJzsKICBhbGVydCgnSGVsbG8sICcgKyBuYW1lKQp9CgpwcmludEhvaXN0TmFtZSgpCnByaW50TmFtZSgp"
+	
+		setEditor(editor, div)
+		
+	  },
+	  
+	  jsdynbinding = function() {
+	  
+		renderHTML('', 0)
+		
+		$("#pageHeader").html('<p><span style="color:#008000">JavaScript Dynamic Binding</span><p>')
+
+		
+	var div = "Ly8gSmF2YVNjcmlwdCBjYW4gZHluYW1pYyBiaW5kIGJ5IHB1dHRpbmcgb2JqZWN0IGluIHNjb3BlIGNoYWluCi8vIHBlcmZvcm1hbmNlIGltcGxpY2F0aW9ucwogCnZhciB4ID0gNTsKIAp2YXIgb2JqID0gewogIHg6IDEwCn07CiAKd2l0aChvYmopIHsKICBhbGVydCh4KTsgLy8gPT4gMTAKfQogCmFsZXJ0KHgpOyAvLyA9PiA1"
+	
+		setEditor(editor, div)
+		
+	  },
+	  
+	  jsmutable = function() {
+	  
+		renderHTML('', 0)
+		
+		$("#pageHeader").html('<p><span style="color:#008000">JavaScript Mutable Locals</span><p>')
+
+		
+	var div = "Ly8gSW4gSmF2YVNjcmlwdCBsb2NhbHMgYXJlIG11dGFibGUgLSBNaWNoYWVsIEZvZ3VzCiAKZnVuY3Rpb24gbXV0YXRlKHgpIHsKICB4ID0gInZhciB4IGlzIG11dGFibGUiOwogIGFsZXJ0KHgpCn0KCmZ1bmN0aW9uIG5vbXV0YXRlKHgpIHsKICBhbGVydCh4KQp9CgptdXRhdGUoInRoaXMgcGFyYW1ldGVyIGlzIG11dGF0ZWQvY2hhbmdlZCIpCm5vbXV0YXRlKCJ0aGlzIHBhcmFtZXRlciBpcyBub3QgbXV0YXRlZC9jaGFuZ2VkIik="
+	
+		setEditor(editor, div)
+		
+	  },
+	  
+	  jsobjects = function() {
+	  
+		renderHTML('', 0)
+		
+		$("#pageHeader").html('<p><span style="color:#008000">JavaScript Objects</span><p>')
+
+		
+	var div = "Ly9hbiBvYmplY3QgaXMgYSBrZXktdmFsdWUgZGF0YSBzdHJ1Y3R1cmUgdGhhdCBjYW4gY29udGFpbiBhcmJpdHJhcnkgbnVtYmVyIAovL29mIHByaW1pdGl2ZXMgKGJvb2wsIGludCwgZmxvYXQsIHN0cmluZyksIGNvbXBvc2l0ZXMgbGlrZSBhcnJheXMsIG9iamVjdHMgCi8vYW5kIGV2ZW4gZnVuY3Rpb25zCnZhciBmb28gPSB7YmFyOiAiYmF6IiwgCiAgICBlbWFpbDogJ2Zvb0BiYXouY29tJywKICAgIGlzRm9vOiB0cnVlLAogICAgZnJpZW5kczogWwogICAgICAgIHsKICAgICAgICAgICAgbmFtZTogIkpvaG4gRG9lIiwKICAgICAgICAgICAgZW1haWw6ICJqb2huZG9lQGdtYWlsLmNvbSIKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICAgbmFtZTogIkphbmUgRG9lIiwKICAgICAgICAgICAgZW1haWw6ICJqYW5lZG9lQGdtYWlsLmNvbSIKICAgICAgICB9CiAgICBdLAogICAgb2JqOiB7eDogMTksIHk6IDIwfSwKICAgIHByaW50QWxlcnQ6IGZ1bmN0aW9uKCkge2FsZXJ0KHRoaXMuZW1haWwpfQp9OyAgLy9vYmplY3QgbGl0ZXJhbAoKYWxlcnQoZm9vLmJhcik7CiAKLy9zZXQgb2JqZWN0IHByb3BlcnR5IGR5bmFtaWNhbGx5IHVzaW5nIFtdIG5vdGF0aW9uCmZvb1siYWJjIl0gPSAxNzsKYWxlcnQoZm9vWyJhYmMiXSk7CgovL3NldCBvYmplY3QgcHJvcGVydHkgZHluYW1pY2FsbHkgdXNpbmcgLiBub3RhdGlvbgpmb28uZGVmID0gMC41CmFsZXJ0KGZvby5kZWYpCgpmb28ucHJpbnRBbGVydCgp"
+	
+		setEditor(editor, div)
+		
+	  },
+	  
+	  jsarray = function() {
+	  
+		renderHTML('', 0)
+		
+		$("#pageHeader").html('<p><span style="color:#008000">JavaScript Array</span><p>')
+
+		
+	var div = "dmFyIGZyaWVuZHMgPSBbCiAgICAgICAgewogICAgICAgICAgICBuYW1lOiAiUGF1bCBTbWl0aCIsCiAgICAgICAgICAgIGVtYWlsOiAicGF1bHNtaXRoQGdtYWlsLmNvbSIKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICAgbmFtZTogIkpvaG4gUG9lIiwKICAgICAgICAgICAgZW1haWw6ICJqb2hucG9lQGdtYWlsLmNvbSIKICAgICAgICB9CiAgICBdCgp2YXIgcHJpbnRBbGVydCA9IGZ1bmN0aW9uICgpIHsKICAgIHZhciBsZW4gPSBmcmllbmRzLmxlbmd0aCAKICAgIGZvciAodmFyIGk9MDsgaSA8IGxlbjsgaSsrKSB7CiAgICAgICAgYWxlcnQoIk5hbWU6ICIgKyBmcmllbmRzW2ldLm5hbWUgKyAiLCBFbWFpbDogIiArIGZyaWVuZHNbaV0uZW1haWwpCiAgICB9ICAgIAp9CgpwcmludEFsZXJ0KCk="
+	
+		setEditor(editor, div)
+		
+	  },
+	  
+	  jsfunc = function() {
+	  
+		renderHTML('', 0)
+		
+		$("#pageHeader").html('<p><span style="color:#008000">JavaScript Function</span><p>')
+
+		
+	var div = "Ly9odHRwOi8vc3BlYWtpbmdqcy5jb20vZXM1L2NoMTUuaHRtbCNfd2hpY2hfaXNfYmV0dGVyX2FfZnVuY3Rpb25fZGVjbGFyYXRpb25fb3JfYV9mdW5jdGlvbl9leHByZXNzaW9uCi8vZnVuY3Rpb24gZGVjbGFyYXRpb24gaXMgaG9pc3RlZCBzbyB5b3UgY2FuIGNhbGwgdGhlbSBiZWZvcmUgdGhleSBhcHBlYXIgaW4gdGhlIHNvdXJjZSBjb2RlLiAKZnVuY3Rpb24gZm9vKCkge30gCgp2YXIgYmFyID0gZnVuY3Rpb24oKSB7fTsgLy9mdW5jdGlvbiBleHByZXNzaW9uCgpmdW5jdGlvbiBmb28yKCkgeyBhbGVydCgiZm9vMiBpcyBhIHByb2NlZHVyZSBvciBzdWJyb3V0aW5lICIpIH0KCnZhciBvYmogPSB7IGZvbzogZnVuY3Rpb24oKSB7IAogICAgYWxlcnQoIm9iai5mb28gaXMgYSBtZXRob2QiKSB9Cn0gCmZvbzIoKQpvYmouZm9vKCk="
+	
+		setEditor(editor, div)
+		
+	  },
+	  
+	  jsclosure = function() {
+	  
+		renderHTML('', 0)
+		
+		$("#pageHeader").html('<p><span style="color:#008000">JavaScript Closure</span><p>')
+
+		
+	var div = "Ly9odHRwczovL2xlYXJuLmpxdWVyeS5jb20vamF2YXNjcmlwdC0xMDEvY2xvc3VyZXMvCmZvciAoIHZhciBpID0gMDsgaSA8IDI7IGkrKyApIHsKICAgIHNldFRpbWVvdXQoZnVuY3Rpb24oKSB7CiAgICAgICAgYWxlcnQoICJXcm9uZyB2YWx1ZSBvZiBpID0gIiArIGkgKTsKICAgIH0sIGkgKiAxMDAgKTsKfQoKdmFyIGNyZWF0ZUZ1bmN0aW9uID0gZnVuY3Rpb24oIGkgKSB7CiAgICByZXR1cm4gZnVuY3Rpb24oKSB7CiAgICAgICAgYWxlcnQoICJGaXggdmFsdWUgb2YgaSA9ICIgKyBpICsgIiB1c2luZyBjbG9zdXJlIiApOwogICAgfTsKfTsKCmZvciAoIHZhciBpID0gMDsgaSA8IDI7IGkrKyApIHsKICAgIHNldFRpbWVvdXQoIGNyZWF0ZUZ1bmN0aW9uKCBpICksIGkgKiAxMDAgKTsKfQ=="
+	
+		setEditor(editor, div)
+		
+	  },
+	  
+	  jsval = function() {
+	  
+		renderHTML('', 0)
+		
+		$("#pageHeader").html('<p><span style="color:#008000">JavaScript Pass-By-Value</span><p>')
+
+		
+	var div = "Ly9KYXZhU2NyaXB0IHBhc3NlcyBwYXJhbWV0ZXIgYnkgdmFsdWUgaWYgaXQgaXMgb2YgcHJpbWl0aXZlIHR5cGUKLy9odHRwOi8vc25vb2suY2EvYXJjaGl2ZXMvamF2YXNjcmlwdC9qYXZhc2NyaXB0X3Bhc3MKZnVuY3Rpb24gbXlmdW5jdGlvbih4KQp7CiAgICAgIHggPSA1OyAvLyB4IGlzIG5vdyBlcXVhbCB0byA1CiAgICAgIGFsZXJ0KCJWYWx1ZSBvZiB4IGluc2lkZSBteWZ1bmN0aW9uIGlzICIgKyB4KQp9Cgp2YXIgeCA9IDQ7CmFsZXJ0KCJWYWx1ZSBvZiB4IGJlZm9yZSBjYWxsIHRvIG15ZnVuY3Rpb24gaXMgIiArIHgpIC8vIHggaXMgZXF1YWwgdG8gNAoKbXlmdW5jdGlvbih4KTsgCmFsZXJ0KCJWYWx1ZSBvZiB4IGFmdGVyIGNhbGwgdG8gbXlmdW5jdGlvbiBpcyAiICsgeCkgLy8geCBpcyBzdGlsbCBlcXVhbCB0byA0"
+	
+		setEditor(editor, div)
+		
+	  },
+	  
+	  jsref = function() {
+	  
+		renderHTML('', 0)
+		
+		$("#pageHeader").html('<p><span style="color:#008000">JavaScript Pass-By-Reference</span><p>')
+
+		
+	var div = "Ly9odHRwOi8vc25vb2suY2EvYXJjaGl2ZXMvamF2YXNjcmlwdC9qYXZhc2NyaXB0X3Bhc3MKZnVuY3Rpb24gbXlvYmplY3QoKSB7IHRoaXMudmFsdWUgPSA1OyB9Cm15b2JqZWN0LnByb3RvdHlwZS5hZGQgPSBmdW5jdGlvbigpIHsgdGhpcy52YWx1ZSsrOyB9CnZhciBvID0gbmV3IG15b2JqZWN0KCk7CmFsZXJ0KCJJbml0aWFsIHZhbHVlOiAiICsgby52YWx1ZSk7IC8vIG8udmFsdWUgPSA1Cm8uYWRkKCk7CmFsZXJ0KCJGaXJzdCBpbmNyZW1lbnQgaW4gdmFsdWU6ICIgKyBvLnZhbHVlKTsgLy8gby52YWx1ZSA9IDYKCmZ1bmN0aW9uIG9iamVjdGNoYW5nZXIoZm5jLCBvYmopCnsKCWZuYy5jYWxsKG9iaik7IC8vIHJ1bnMgdGhlIG1ldGhvZCBvZiB0aGUgb2JqZWN0IGJlaW5nIHBhc3NlZCBpbgp9Cm9iamVjdGNoYW5nZXIoby5hZGQsIG8pOwphbGVydCgiU2Vjb25kIGluY3JlbWVudCBpbiB2YWx1ZTogIiArIG8udmFsdWUpOyAvLyB0aGUgdmFsdWUgaXMgbm93IDc="
+	
+		setEditor(editor, div)
+		
+	  },
+	  
+	  jslazyeval = function() {
+	  
+		renderHTML('', 0)
+		
+		$("#pageHeader").html('<p><span style="color:#008000">JavaScript Call-By-Need (aka Lazy Evaluation)</span><p>')
+
+		
+	var div = "dmFyIHBsdXMgPSAkKCIjcGx1cyIpLmFzRXZlbnRTdHJlYW0oImNsaWNrIikubWFwKDEpCnZhciBtaW51cyA9ICQoIiNtaW51cyIpLmFzRXZlbnRTdHJlYW0oImNsaWNrIikubWFwKC0xKQp2YXIgYm90aCA9IHBsdXMubWVyZ2UobWludXMpCgkJCmZ1bmN0aW9uIGFkZCh4LCB5KSB7IHJldHVybiB4ICsgeSB9CnZhciBjb3VudGVyID0gYm90aC5zY2FuKDAsIGFkZCkKY291bnRlci5vblZhbHVlKGZ1bmN0aW9uKHN1bSkgeyAkKCIjc3VtIikudGV4dChzdW0pIH0pCgovL2NsaWNrIEJhY29uSlMgZm9yIGRlbW8="
+	
+		setEditor(editor, div)
+		
+	  },
+	  
+	  jspromise = function() {
+	  
+		renderHTML('', 0)
+		
+		$("#pageHeader").html('<p><span style="color:#008000">JavaScript Call-By-Future (aka Promise/Deferred/Future)</span><p>')
+
+		
+	var div = "Ly9zZWUgUHJvbWlzZS1iYXNlZCBkZW1vIG9mIEJhY29uLmpzIHR1dG9yaWFsCmZ1bmN0aW9uIGpxUHJvbWlzZSgpIHsKCgl2YXIgd2hlbiA9IHJlcXVpcmUoJ3doZW4nKTsKCglmdW5jdGlvbiBzaG93KHgpIHsKCQljb25zb2xlLmxvZyh4KQoJfQoJZnVuY3Rpb24gbm9uRW1wdHkoeCkgewoJCXJldHVybiB4Lmxlbmd0aCA+IDAKCX0KCWZ1bmN0aW9uIHNldFZpc2liaWxpdHkoZWxlbWVudCwgdmlzaWJsZSkgewoJCWVsZW1lbnQudG9nZ2xlKHZpc2libGUpCgl9CglmdW5jdGlvbiBzZXRFbmFibGVkKGVsZW1lbnQsIGVuYWJsZWQpIHsKCQllbGVtZW50LmF0dHIoImRpc2FibGVkIiwgIWVuYWJsZWQpCgl9CgoJdmFyIHJlZ2lzdGVyQnV0dG9uID0gJCgiI3JlZ2lzdGVyIGJ1dHRvbiIpOwoJdmFyIHVuYXZhaWxhYmlsaXR5TGFiZWwgPSAkKCIjdXNlcm5hbWUtdW5hdmFpbGFibGUiKTsKCXZhciB1c2VybmFtZUFqYXhJbmRpY2F0b3IgPSAkKCIjdXNlcm5hbWUgLmFqYXgiKTsKCXZhciByZWdpc3RlckFqYXhJbmRpY2F0b3IgPSAkKCIjcmVnaXN0ZXIgLmFqYXgiKTsKCgkvL2luaXRpYWxpemUKCXNldFZpc2liaWxpdHkodXNlcm5hbWVBamF4SW5kaWNhdG9yLCBmYWxzZSk7CglzZXRWaXNpYmlsaXR5KHJlZ2lzdGVyQWpheEluZGljYXRvciwgZmFsc2UpOwoJc2V0RW5hYmxlZChyZWdpc3RlckJ1dHRvbiwgZmFsc2UpOwoKCS8vYSBkZWZlcnJlZCdzIHJlc29sdmUvcmVqZWN0IGFuZCBub3RpZnkgYXJlIG11dHVhbGx5IGV4Y2x1c2l2ZQoKCXZhciBmdWxsbmFtZSA9IHdoZW4oJycpOwoJdmFyIHVzZXJuYW1lID0gd2hlbignJyk7Cgl2YXIgdXNlcm5hbWVFbnRlcmVkID0gd2hlbihmYWxzZSk7Cgl2YXIgZnVsbG5hbWVFbnRlcmVkID0gd2hlbihmYWxzZSk7Cgl2YXIgYnV0dG9uRW5hYmxlZCA9IHdoZW4oZmFsc2UpOwoJdmFyIGF2YWlsYWJpbGl0eVJlcXVlc3QgPSB3aGVuLmRlZmVyKCk7Cgl2YXIganFBdmFpbGFiaWxpdHlSZXF1ZXN0OyAvLz0gJC5EZWZlcnJlZCgpOwoJdmFyIGF2YWlsYWJpbGl0eVBlbmRpbmcgPSB3aGVuLmRlZmVyKCk7Cgl2YXIgdXNlcm5hbWVBdmFpbGFibGUgPSB3aGVuKGZhbHNlKTsKCgkvL25vIGF2YWlsYWJpbGl0eVJlc3BvbnNlIChsZXNzIHZhcmlhYmxlcywgdGhlIGJldHRlcikKCglmdW5jdGlvbiBzZXRCdXR0b25FbmFibGVkKCkgewoJCWJ1dHRvbkVuYWJsZWQgPSB3aGVuLmpvaW4odXNlcm5hbWVFbnRlcmVkLCB1c2VybmFtZUF2YWlsYWJsZSwgZnVsbG5hbWVFbnRlcmVkKTsKCgkJYnV0dG9uRW5hYmxlZC50aGVuKGZ1bmN0aW9uIChhcnJheUJvb2wpIHsKCQkJLy9hbGVydChhcnJheUJvb2wpOwoKCQkJbGVuID0gYXJyYXlCb29sLmxlbmd0aDsKCQkJdmFyIHJlc3VsdCA9IHRydWU7CgkJCWZvciAodmFyIGkgPSAwOyBpIDwgbGVuOyBpKyspIHsKCQkJCXJlc3VsdCA9IHJlc3VsdCAmJiBhcnJheUJvb2xbaV07CgkJCX0KCQkJc2V0RW5hYmxlZChyZWdpc3RlckJ1dHRvbiwgcmVzdWx0KTsKCgkJfSk7Cgl9CgoJLy9wcm9taXNlcyBlbmFibGUgeW91IHRvIGdldCBvdXQgb2YgdGhlIGNhbGxiYWNrIHNoZWxsCgkkKCIjdXNlcm5hbWUgaW5wdXQiKS5vbigna2V5dXAnLCBmdW5jdGlvbiAoKSB7CgoJCXZhciB1c2VyID0gJCh0aGlzKS52YWwoKTsgLy9zdHJpbmcKCQkKCQl1c2VybmFtZSA9IHdoZW4odXNlcik7CgkJCgkJaWYgKG5vbkVtcHR5KHVzZXIpKSB7CgkJCQoJCQl1c2VybmFtZUVudGVyZWQgPSB3aGVuKHRydWUpOwoKCQkJLy9zaW11bGF0ZSBhdmFpbGFiaWxpdHlQZW5kaW5nCgkJCXNldFZpc2liaWxpdHkodXNlcm5hbWVBamF4SW5kaWNhdG9yLCB0cnVlKTsKCgkJCS8valF1ZXJ5IEFKQVggY2FsbHMgaW1wbGVtZW50IGEgcHJvbWlzZSBpbnRlcmZhY2UKCQkJanFBdmFpbGFiaWxpdHlSZXF1ZXN0ID0gJC5nZXQoIi91c2VybmFtZWF2YWlsYWJsZS8iICsgdXNlcik7CgkJCQoJCQl1c2VybmFtZUF2YWlsYWJsZSA9IHdoZW4oanFBdmFpbGFiaWxpdHlSZXF1ZXN0KTsKCQkJCgkJCXVzZXJuYW1lQXZhaWxhYmxlLnRoZW4oZnVuY3Rpb24gKGJvb2wpIHsKCgkJCQlzZXRWaXNpYmlsaXR5KHVzZXJuYW1lQWpheEluZGljYXRvciwgZmFsc2UpOwoKCQkJCS8vd2hlbiB1c2VybmFtZWF2YWlsYWJsZSBpcyBmYWxzZSwgc2hvdyB1bmF2YWlsYWJpbGl0eUxhYmVsCgkJCQlzZXRWaXNpYmlsaXR5KHVuYXZhaWxhYmlsaXR5TGFiZWwsICFib29sKTsKCQkJfSk7CgkJCQoJCQkKCgkJfSBlbHNlIHsKCQkJdXNlcm5hbWVFbnRlcmVkID0gd2hlbihmYWxzZSk7CgkJfQoJCXNldEJ1dHRvbkVuYWJsZWQoKTsKCX0pOwoKCSQoIiNmdWxsbmFtZSBpbnB1dCIpLm9uKCdrZXl1cCcsIGZ1bmN0aW9uICgpIHsKCQlzdHJGdWxsbmFtZSA9ICQodGhpcykudmFsKCk7IC8vc3RyaW5nCgkJZnVsbG5hbWUgPSB3aGVuKHN0ckZ1bGxuYW1lKTsKCgkJaWYgKG5vbkVtcHR5KHN0ckZ1bGxuYW1lKSkgewoJCQlmdWxsbmFtZUVudGVyZWQgPSB3aGVuKHRydWUpOwoJCX0gZWxzZSB7CgkJCWZ1bGxuYW1lRW50ZXJlZCA9IHdoZW4oZmFsc2UpOwoJCX0KCgkJc2V0QnV0dG9uRW5hYmxlZCgpOwoJfSk7CgoJcmVnaXN0ZXJCdXR0b24ub24oJ2NsaWNrJywgZnVuY3Rpb24gKGV2ZW50KSB7CgkJJCh0aGlzKS5wcm9wKCdkaXNhYmxlZCcsIHRydWUpOwoKCQlldmVudC5wcmV2ZW50RGVmYXVsdCgpOwoKCQlzZXRWaXNpYmlsaXR5KHJlZ2lzdGVyQWpheEluZGljYXRvciwgdHJ1ZSk7CgoJCXZhciBpbnB1dCA9IHdoZW4uam9pbih1c2VybmFtZSwgZnVsbG5hbWUpOwoKCQkKCQlpbnB1dC50aGVuKGZ1bmN0aW9uICh2YWx1ZXMpIHsKCQkJJC5hamF4KHsKCQkJCXR5cGUgOiAicG9zdCIsCgkJCQl1cmwgOiAiL3JlZ2lzdGVyIiwKCQkJCWNvbnRlbnRUeXBlIDogImFwcGxpY2F0aW9uL2pzb24iLAoJCQkJZGF0YSA6IEpTT04uc3RyaW5naWZ5KHsKCQkJCQl1c2VybmFtZSA6IHZhbHVlc1swXSwKCQkJCQlmdWxsbmFtZSA6IHZhbHVlc1sxXQoJCQkJfSksCgkJCQlzdWNjZXNzIDogZnVuY3Rpb24gKGRhdGEpIHsKCQkJCQlhbGVydCgiVXNlcm5hbWU6ICIgKyB2YWx1ZXNbMF0gKyAiIEZ1bGxuYW1lOiAiICsgdmFsdWVzWzFdKTsKCQkJCQkKCQkJCQkkKCIjdXNlcm5hbWUgaW5wdXQiKS52YWwoJycpOwoJCQkJCSQoIiNmdWxsbmFtZSBpbnB1dCIpLnZhbCgnJyk7CgoJCQkJCXNldFZpc2liaWxpdHkocmVnaXN0ZXJBamF4SW5kaWNhdG9yLCBmYWxzZSk7CgkJCQkJCgkJCQkJd2luZG93Lm9wZW4oJ2RlbW8zLmh0bWwnLCAiX3NlbGYiKTsgIC8vcmVmcmVzaAoJCQkJfQoJCQl9KTsKCQl9KTsKCQkKCgl9KTsKfQ=="
+	
+		setEditor(editor, div)
+		
+	  },
+	  
+	  jscallback = function() {
+	  
+		renderHTML('', 0)
+		
+		$("#pageHeader").html('<p><span style="color:#008000">JavaScript Callback</span><p>')
+
+		
+	var div = "Ly9hIGNhbGxiYWNrIGlzIGEgZnVuY3Rpb24gdGhhdCBpcyBub3QgZXhlY3V0ZWQgaW1tZWRpYXRlbHkuCi8vaW5zdGVhZCwgaXQgaXMgY2FsbGVkIGJhY2sgYXQgc29tZSBwb2ludCBpbiB0aW1lIGR1ZSB0byBhbiBldmVudAovL2FuIGV2ZW50IGNhbiBiZSBpbnB1dC9vdXRwdXQgbGlrZSBjbGlja2VkIGJ1dHRvbiwgd3JpdGUgdG8gZGlzaywgZGF0YWJhc2UgcmVhZAovL29yIGNhbiBiZSBhbnkgdXNlci1kZWZpbmVkIGV2ZW50ICh0YXNrIGlzIGNvbXBsZXRlZCwgaW52YWxpZCBpbnB1dCwgZXRjKQovL2hlbmNlLCBhIGNhbGxiYWNrIGNhbiBiZSBjYWxsZWQgYW4gZXZlbnQgaGFuZGxlcgovL3RoZSBjYWxsaW5nIGZ1bmN0aW9uIChjb250cm9sIGxvZ2ljKSBhbmQgdGhlIGZ1bmN0aW9uIHRvIGJlIGNhbGxlZCAoYXBwIGxvZ2ljKSBhcmUgc2VwYXJhdGUKJCgiI2J1dHRvbiIpLmNsaWNrKGZ1bmN0aW9uKCkgewogIGFsZXJ0KCJCdXR0b24gY2xpY2tlZCIpOwp9KTs="
+	
+		setEditor(editor, div)
+		
+	  }
+          
+
+      var routes = {
+		//javascript
+		'/jsvarscope': jsvarscope,
+		'/jsvarhoisting': jsvarhoisting,
+		'/jsdynbinding': jsdynbinding,
+		'/jsmutable': jsmutable,
+		'/jsobjects': jsobjects,
+		'/jsarray': jsarray,
+		'/jsfunc': jsfunc,
+		'/jsclosure': jsclosure,
+		'/jsval': jsval,
+		'/jsref': jsref,
+		'/jslazyeval': jslazyeval,
+		'/jspromise': jspromise,
+		'/jscallback': jscallback,
+		
+		//bootstrap
+	    '/container': container,
+        '/fixedgrid': fixedgrid,
+        '/offsetcolumns': offsetcolumns,
+		'/nestingcolumns': nestingcolumns,
+		'/fluidgrid': fluidgrid,
+		'/navigationtabs': navigationtabs,
+		'/navbar/': navbar,
+		'/breadcrumb': breadcrumb,
+		'/pagination': pagination,
+		'/labelnbadge': labelnbadge,
+		'/alrt': alrt,
+		'/tbl': tbl,
+		'/btn': btn,
+		'/toggle': toggle,
+		'/modal': modal
+      };
+
+      var router = Router(routes);
+      router.init();
+	  
+
+	$('.nav-list li a').click(function(){
+		$('.nav-list li').removeClass('active')
+		$(this).parent().addClass('active')
+	})
+	
+	function setEditorValue(editor, v) {
+		editor.setValue(v, -1)
+	}
+
+    var editor = ace.edit("editor")
+    editor.getSession().setUseWorker(false)
+    editor.setTheme("ace/theme/monokai")
+
+	
+	setEditorValue(editor, '')
+	
+	function setHTMLMode() {
+		editor.getSession().setMode("ace/mode/html")
+	}
+	
+	function setJavaScriptMode() {
+		editor.getSession().setMode("ace/mode/javascript")
+	}
+	
+	function renderHTML(strHTML, isHTMLMode) {
+		$("#divResult").html(strHTML)
+		
+		isHTMLMode ? setHTMLMode() : setJavaScriptMode()
+	}
+		
+	$("#btnRenderHTML").click(function() {
+		
+		renderHTML(editor.getSession().getValue())
+
+	})
+	
+	$("#btnRunJS").click(function() {
+		
+		eval(editor.getSession().getValue())
+
+	})
+	
+	jsvarscope()
+})
+
+</script>
+
+</body>
+</html>

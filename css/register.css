@@ -1,0 +1,148 @@
+
+
+.ajax { 
+  background: url('../images/ajax.gif') no-repeat;
+  display: inline-block;
+  width: 54;
+  height: 54;
+  margin-top: -2px;
+}
+
+#username-unavailable {
+  display: none;
+}
+
+#username {
+  position: relative;
+}
+
+#username .ajax {
+  position: absolute;
+  top: 10px;
+  right: 0px;
+}
+
+.tooltip {
+  font-size:1.7em;
+  color: #fff;
+  display:inline;
+  padding:15px;
+  position: absolute;
+  left: 92%;
+  top: 0%;
+  white-space:nowrap;
+  background-color: #FF0000;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  border:2px solid #FF0000;
+  -webkit-box-shadow: #B3B3B3 4px 4px 4px;
+  -moz-box-shadow: #B3B3B3 4px 4px 4px;
+  box-shadow: #B3B3B3 4px 4px 4px;
+  z-index:97
+}
+
+.tooltip:before {
+    border:solid;
+    border-color:#FF0000 transparent;
+    border-width:20px 20px 0 20px;
+    top: 15px;
+    left: -20px;
+    content:"";
+    display:block;
+    position:absolute;
+    z-index:98
+}
+
+#login-container {
+  position: relative;
+  width:400px;
+  height:300px;
+  margin:50px;
+  padding: 0px 120px 40px 40px;
+  background-color: #323B55;
+  background-image: -webkit-linear-gradient(bottom, #323B55 0%, #424F71 100%);
+  background-image: -moz-linear-gradient(bottom, #323B55 0%, #424F71 100%);
+  background-image: -ms-linear-gradient(bottom, #323B55 0%, #424F71 100%);
+  background-image: linear-gradient(bottom, #323B55 0%, #424F71 100%);
+  -webkit-border-radius: 30px 40px 50px 90px;
+  -moz-border-radius: 30px 40px 50px 90px;
+  border-radius: 30px 40px 50px 90px;
+  border:10px solid #F2F2F2;
+}
+
+#login-container:after {
+  position:absolute;
+  top:-50px;
+  right:-100px;
+  content: url('../images/bacon.png');
+  width: 200px;
+  height: 176px;
+  display: block;
+}
+
+#username, #fullname {
+	position: relative;
+}
+
+#login-container h1 {
+  color: #fff;
+}
+
+#login-container button {
+  background-color: #FFFF00;
+  border-color: #dddd00;
+  color: #c00;
+}
+
+#login-container button:disabled {
+  background-color: #888;
+  color: #444;
+  border-color: #666;
+}
+
+#login-container input {
+  color: #800;
+}
+
+#login-container input::-webkit-input-placeholder { color: LightGray; }
+#login-container input:-moz-placeholder { color: LightGray; }
+#login-container input:-ms-input-placeholder  { color: LightGray; }
+
+
+#login-container input,
+#login-container button {
+  padding: 5px;
+  font-size: 2.0em;
+  margin-top: 10px;
+  -webkit-border-radius: 15px 15px 15px 15px;
+  -moz-border-radius: 15px 15px 15px 15px;
+  border-radius: 15px 15px 15px 15px;
+  border-width:3px;
+}
+#login-container input {
+	width: 85%;
+}
+#login-container button {
+	position: absolute;
+	left: auto;
+	right: -95px;
+}
+
+#register {
+  position: relative;
+}
+
+#register .ajax {
+  position: absolute;
+  right: 81px;
+  top: 12px;
+}
+
+#register #result {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 2em;
+  color: #ff0;
+  text-shadow: black 4px 4px 4px;
+}
