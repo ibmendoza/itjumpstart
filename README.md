@@ -2,12 +2,9 @@ Jumpstart your IT career
 ========================
 
 
-ITJUMPSTART is all about promoting a self-sufficient, organic and meaningful IT career without the hassle of traditional 
-education. To do so, I am concentrating on a few but highly capable stack of software namely Linux, nginx, MySQL, Node.js 
-and Go language.
+ITJUMPSTART is all about promoting a self-sufficient, organic and meaningful IT career without the hassle of traditional education. To do so, I am concentrating on a few but highly capable stack of software namely Linux, nginx, MySQL, Node.js and Go language.
 
-Pursuing an IT career does not require a college degree. If you want to obtain one, it is entirely your prerogative but 
-it is not necessary. After all, the technologies of the future are not necessarily brought about by educational 
+Pursuing an IT career does not require a college degree. If you want to obtain one, it is entirely your prerogative but it is not necessary. After all, the technologies of the future are not necessarily brought about by educational 
 institutions but by IT practitioners who are constantly on the run to squeeze every ounce of functionality, usability 
 and speed out of their product or service.
 
@@ -26,6 +23,11 @@ License
 -------
 
 Creative Commons Attribution-NonCommercial 3.0 Unported (https://creativecommons.org/licenses/by-nc/3.0)
+
+Spread the word
+---------------
+
+All materials are free of charge. ITJUMPSTART is a non-profit social mission that complements MOOCs and online learning. ITJUMPSTART aims to provide an alternative learning system to IT.
 
 Contact
 -------
