@@ -19,6 +19,11 @@ but there is poverty of implementation.
 
 This repository is all about Web Development Fundamentals to jumpstart your path to IT domain.
 
+Why IT Jumpstart?
+----------------
+
+See my blog post at http://itjumpstart.wordpress.com/2015/03/14/why-it-jumpstart
+
 License
 -------
 
