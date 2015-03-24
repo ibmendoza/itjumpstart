@@ -37,3 +37,5 @@ Gani Mendoza
 Twitter: ibm2100
 
 GitHub: github.com/ibmendoza
+
+Blog: itjumpstart.wordpress.com
